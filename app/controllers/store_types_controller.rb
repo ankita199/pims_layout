@@ -1,7 +1,4 @@
 class StoreTypesController < ApplicationController
-
-
-	#before_action :set_store, only: [:create]
   before_action :set_store_type, only: [:show, :edit, :update, :destroy]
 
 
@@ -18,54 +15,42 @@ class StoreTypesController < ApplicationController
     @store_type = StoreType.new
   end
 
+  def create
+    @store_type = StoreType.new(store_type_params)
+    if @store_type.valid?
+      @store_type.save
+      flash[:notice] = "Store Type created successfully."
+      render :js => "window.location = '#{store_types_path}'"
+    else
+      flash[:alert] = @store_type.errors.full_messages  
+      render :partial =>  'shared/errors'
+    end
+  end
 
   def edit
   end
 
-
-  def create
-    @store_type = StoreType.new(store_type_params)
-    begin
-    #authorize @store_type
-    @store_type.save!
-    rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
-    end
-  end
-
-
   def update
-  	begin
-      @store_type.attributes = store_type_params
-      #authorize @store_type
-       @store_type.save!
-       rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @store_type.update_attributes(store_type_params)
+      flash[:notice] = "Store Type updated successfully."
+      render :js => "window.location = '#{store_types_path}'"
+    else
+      flash[:alert] = @store_type.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
-
 
   def destroy
-  	begin
-    #authorize @store_type
     @store_type.destroy!
-    rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
-
+    flash[:notice] = "Store Type deleted successfully."
+    redirect_to store_types_path
   end
 
   private
 
     def set_store_type
-    	begin
       @store_type = StoreType.find(params[:id])
-     rescue ActiveRecord::RecordNotFound => e
-     	@error = e.message
-     	logger.debug "Epitome: #{@error}"
-     end
     end
-
 
     def store_type_params
       params.require(:store_type).permit(:name,:description)

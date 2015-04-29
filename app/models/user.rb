@@ -1,14 +1,9 @@
 class User < ActiveRecord::Base
   rolify
-
-
 	belongs_to :title
 	belongs_to :staff_category
 	has_many :supplies
 	has_many :hospital_units
-
-
-
 
 	before_save :default_password,:user_active_status,:capitalize_attr
 	before_update :user_active_status

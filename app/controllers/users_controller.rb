@@ -10,32 +10,34 @@ class UsersController < ApplicationController
 
   def edit
     @titles = Title.order(:name)
-		@staffcategories = StaffCategory.all.order(:name)
-		@stores = Store.all.order(:name)
+    @staffcategories = StaffCategory.order(:name)
+    @stores = Store.joins(:roles).uniq
   end
 
 
-  def update
-    @user.attributes = user_params
-    #authorize @user
-    @user.save!
-    @user.roles.destroy_all
-    @user.roles << Role.find(params[:user][:role_ids].select{|i| i.present? })
-
+  def update    
+    if @user.update_attributes(user_params)
+      role_array = params[:user][:roles].reject! { |c| c.empty? }
+      @user.role_ids = role_array if role_array.present?
+      @user.save!
+      redirect_to users_path
+    else
+      @titles = Title.order(:name)
+      @staffcategories = StaffCategory.order(:name)
+      @stores = Store.joins(:roles).uniq
+      flash[:alert] = @user.errors.full_messages
+      render 'edit'
+    end
   end
 
 
   def password_reset
-  			@user.password_reset!
-  			@error = @user.errors.full_messages.to_sentence
-  	end
-
-
+  	@user.password_reset!
+  	@error = @user.errors.full_messages.to_sentence
+  end
 
   def password_edit
-  	logger.debug"----------------------------------------------------------"
-  	logger.debug"Current User ID:#{current_user.id}"
-     @user = User.find(me.id)
+    @user = User.find(me.id)
   end
 
 
@@ -57,14 +59,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-  	authorize @user
-  	@error = @user.errors.full_messages.to_sentence unless @user.destroy!
+    @user.destroy!
+    flash[:notice] = "User deleted successfully."
+    redirect_to users_path
   end
 
   private
 
   def set_user
-  		@user = User.find(params[:id])
+  	@user = User.find(params[:id])
   end
 
   def user_params

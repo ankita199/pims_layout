@@ -21,32 +21,32 @@ class ItemConcentrationUnitsController < ApplicationController
 
   def create
     @item_concentration_unit = ItemConcentrationUnit.new(item_concentration_unit_params)
-    begin
-    #authorize @item_concentration_unit
-     @item_concentration_unit.save!
-     rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @item_concentration_unit.valid?
+      @item_concentration_unit.save
+      flash[:notice] = "Item Concentration Unit created successfully."
+      render :js => "window.location = '#{item_concentration_units_path}'"
+    else
+      flash[:alert] = @item_concentration_unit.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
   def update
-      @item_concentration_unit.attributes = item_concentration_unit_params
-      begin
-      #authorize @item_concentration_unit
-       @item_concentration_unit.save!
-       rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    @item_concentration_unit.attributes = item_concentration_unit_params
+    if @item_concentration_unit.update_attributes(item_concentration_unit_params)
+      flash[:notice] = "Item Concentration Unit updated successfully."
+      render :js => "window.location = '#{item_concentration_units_path}'"
+    else
+      flash[:alert] = @item_concentration_unit.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-    #authorize @item_concentration_unit
     @item_concentration_unit.destroy!
-    rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+    flash[:notice] = "Item Concentration Unit deleted successfully."
+    redirect_to item_concentration_units_path
   end
 
   private

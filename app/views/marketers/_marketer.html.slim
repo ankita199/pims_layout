@@ -1,7 +1,0 @@
-    tr.marketer data-id = marketer.id
-       td.name = marketer.try(:name )
-       td.description = marketer.try(:description)
-       td.foreign = marketer.foreign.to_s.capitalize
-       td.text-right
-            a.btn.btn-primary.btn-xs href = edit_marketer_path(marketer) data-remote='true'  data-disable-with='Editing...'  Edit 
-            a.btn.btn-danger.btn-xs href = marketer_path(marketer) data-method='delete'  data-remote=true  data-confirm='Are you sure you want delete?'   Destroy

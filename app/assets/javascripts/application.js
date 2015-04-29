@@ -11,19 +11,32 @@
 // about supported directives.
 //
 //= require jquery
-//  require jquery.turbolinks
 //= require jquery_ujs
-//= require cocoon
 //= require jquery-ui
-//= require jquery-ui/core
-//= require bootstrap-sprockets
-// require turbolinks
-//= require_tree .
+//= require bootstrap.min
+// require cocoon
 
+// require jquery-ui/core
+// require bootstrap-sprockets
+// require_tree .
 
+//= require jquery.dataTables.min
+// require dataTables.bootstrap
+//= require jquery_nested_form
+//= require jquery-migrate-1.2.1.min
+//= require jquery.ui.touch-punch.min
+//= require jquery.autosize.min
+//= require jquery.placeholder.min
+//= require jquery-jvectormap-1.2.2.min
+//= require jquery-jvectormap-world-mill-en
+//= require custom.min
+//= require core.min
+//= require jquery.sumoselect.min
 
 $(document).ready(function() {
   $('.has-tooltip').tooltip({ placement: 'auto left'});
   $("input.datepicker").datepicker();
+  $('.sumoselect').SumoSelect({ okCancelInMulti: true, selectAll: true });
+  $(".datatable").dataTable();
 });
 

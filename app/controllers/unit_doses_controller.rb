@@ -23,33 +23,32 @@ class UnitDosesController < ApplicationController
 
   def create
     @unit_dose = UnitDose.new(unit_dose_params)
-    begin
-    #authorize @unit_dose
-    @unit_dose.save!
-    rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @unit_dose.valid?
+      @unit_dose.save
+      flash[:notice] = "Unit Dose created successfully."
+      render :js => "window.location = '#{unit_doses_path}'"
+    else
+      flash[:alert] = @unit_dose.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def update
-      @unit_dose.attributes = unit_dose_params
-      begin
-      #authorize @unit_dose
-     @unit_dose.save!
-     rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @unit_dose.update_attributes(unit_dose_params)
+      flash[:notice] = "Unit Dose updated successfully."
+      render :js => "window.location = '#{unit_doses_path}'"
+    else
+      flash[:alert] = @unit_dose.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-  	#authorize @unit_dose
-    @unit_dose.destroy!
-    rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+  	@unit_dose.destroy!
+    flash[:notice] = "Unit Dose deleted successfully."
+    redirect_to unit_doses_path
   end
 
   private

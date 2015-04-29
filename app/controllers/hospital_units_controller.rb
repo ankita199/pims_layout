@@ -24,33 +24,32 @@ class HospitalUnitsController < ApplicationController
 
   def create
     @hospital_unit = HospitalUnit.new(hospital_unit_params)
-    begin
-    #authorize @hospital_unit
-    @hospital_unit.save!
-   rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @hospital_unit.valid?
+      @hospital_unit.save
+      flash[:notice] = "Hospital Unit created successfully."
+      render :js => "window.location = '#{hospital_units_path}'"
+    else
+      flash[:alert] = @hospital_unit.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def update
-      @hospital_unit.attributes = hospital_unit_params
-      begin
-      #authorize  @hospital_unit
-       @hospital_unit.save!
-        rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @hospital_unit.update_attributes(hospital_unit_params)
+      flash[:notice] = "Hospital Unit updated successfully."
+      render :js => "window.location = '#{hospital_units_path}'"
+    else
+      flash[:alert] = @hospital_unit.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-   #authorize  @hospital_unit
     @hospital_unit.destroy!
-    rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+    flash[:notice] = "Hospital Unit deleted successfully."
+    redirect_to hospital_units_path
   end
 
   private

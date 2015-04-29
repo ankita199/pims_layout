@@ -1,7 +1,0 @@
-tr.unit-dose data-id = unit_dose.id
-        td = unit_dose.try(:name)
-        td = unit_dose.try(:form_type )
-        td = unit_dose.unit_type
-        td.text-right
-            a.btn.btn-primary.btn-xs href = edit_unit_dose_path(unit_dose) data-remote='true'  Edit
-            a.btn.btn-danger.btn-xs href = unit_dose_path(unit_dose) data-method='delete'   data-remote='true'  Destroy

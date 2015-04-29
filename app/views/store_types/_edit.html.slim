@@ -1,8 +1,0 @@
-.store-type-edit-form.well data-id = @store_type.id
-     h5 Update #{@store_type.name}
-     = simple_form_for @store_type,remote:true do |f|
-      
-        = f.input :name,label:"Category"
-        = f.input :description
-        = f.button :submit,'Save', class:'btn-success btn-sm'
-

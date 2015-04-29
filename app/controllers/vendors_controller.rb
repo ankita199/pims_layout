@@ -27,33 +27,32 @@ class VendorsController < ApplicationController
 
   def create
     @vendor = Vendor.new(vendor_params)
-    begin
-     #authorize @vendor
-     @vendor.save!
-      rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @vendor.valid?
+      @vendor.save
+      flash[:notice] = "Vendor created successfully."
+      render :js => "window.location = '#{vendors_path}'"
+    else
+      flash[:alert] = @vendor.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def update
-   @vendor.attributes = vendor_params
-   begin
-    #authorize @vendor
-  @vendor.save!
-      rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+   if @vendor.update_attributes(vendor_params)
+      flash[:notice] = "Vendor updated successfully."
+      render :js => "window.location = '#{vendors_path}'"
+    else
+      flash[:alert] = @vendor.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-  	#authorize @vendor
-     @vendor.destroy!
-      rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+    @vendor.destroy!
+    flash[:notice] = "Vendor deleted successfully."
+    redirect_to vendors_path
   end
 
   private

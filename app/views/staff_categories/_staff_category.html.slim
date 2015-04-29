@@ -1,6 +1,0 @@
-tr.staff-category data-id = staff_category.id 
-        td.name = staff_category.try(:name )
-        td.description = staff_category.try(:description)
-        td.text-right
-            a.btn.btn-primary.btn-xs href = edit_staff_category_path(staff_category) data-remote='true'  data-disable-with='Editing...'  Edit
-            a.btn.btn-danger.btn-xs href = staff_category_path(staff_category) data-method='delete'   data-confirm='Are you sure you want to delete?'   data-remote='true'  Destroy

@@ -1,7 +1,0 @@
- tr.store-operation data-id = store_operation.id
-        td.name = store_operation.try(:name )
-        td.description = store_operation.try(:description)
-        td.required = store_operation.payment_required.to_s.capitalize
-        td.text-right
-            a.btn.btn-primary.btn-xs href = edit_store_operation_path(store_operation) data-remote='true'  Edit
-            a.btn.btn-danger.btn-xs href = store_operation_path(store_operation) data-method='delete'   data-remote='true'  Destroy

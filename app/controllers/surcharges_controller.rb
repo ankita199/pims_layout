@@ -5,7 +5,6 @@ class SurchargesController < ApplicationController
 
 
   def index
-  	new
   end
 
   def new
@@ -13,42 +12,38 @@ class SurchargesController < ApplicationController
     @surcharge.surcharge_items.build
   end
 
-   def edit
+  def edit
    	@surcharge.surcharge_items.build
   end
 
 
   def create
   	@surcharge = Surcharge.new(surcharge_params)
-		begin
-  	 #authorize @surcharge
-    @surcharge.save!
-	rescue ActiveRecord::RecordInvalid => invalid
-	@error = invalid.record.errors.full_messages.first
-	rescue StandardError::Pundit::NotAuthorizedError => e
-	@error = e.message
-end
+    if @surcharge.valid?
+      @surcharge.save
+      flash[:notice] = "Surcharge created successfully."
+      render :js => "window.location = '#{surcharges_path}'"
+    else
+      flash[:alert] = @surcharge.errors.full_messages  
+      render :partial =>  'shared/errors'
+    end
   end
 
   def update
-		begin
-  	@surcharge.attributes = surcharge_params
-  	 #authorize @surcharge
-    @surcharge.save!
-	 rescue ActiveRecord::RecordInvalid => invalid
-	@error = invalid.record.errors.full_messages.first
-	rescue StandardError::Pundit::NotAuthorizedError => e
-	@error = e.message
-end
+    if @surcharge.update_attributes(surcharge_params)
+      @surcharge.save
+      flash[:notice] = "Surcharge updated successfully."
+      render :js => "window.location = '#{surcharges_path}'"
+    else
+      flash[:alert] = @surcharge.errors.full_messages  
+      render :partial =>  'shared/errors'
+    end
   end
 
   def destroy
-		begin
-  	#authorize @surcharge
-    @surcharge.destroy!
-	  rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-    end
+    @surcharge.destroy!    
+    flash[:notice] = "Surcharge deleted successfully."
+    redirect_to surcharges_path
   end
 
 
@@ -63,8 +58,6 @@ end
   end
 
   def surcharge_params
-      params.require(:surcharge).permit(:name, :charge_type, :active,
-                                                                    surcharge_items_attributes: [:id,:name, :description,:value])
-    end
-
+    params.require(:surcharge).permit(:name, :charge_type, :active,surcharge_items_attributes: [:id,:name, :description,:value, :_destroy])
+  end
 end

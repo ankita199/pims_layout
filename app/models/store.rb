@@ -9,14 +9,10 @@ class Store < ActiveRecord::Base
 	 #has_many :supplies
 	 belongs_to :store_operation
 
-
-
   default_scope{order(name: :asc)}
 
 	validates :name, presence: true, uniqueness: true, length: {in:2..20}
-	validates :store_type, presence: true
-	validates :store_operation, presence: true
-
+	validates :store_type_id, :store_operation_id, presence: true
 
 	before_save :modify_attr
 	before_validation :name_unique

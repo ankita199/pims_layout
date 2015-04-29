@@ -1,7 +1,0 @@
-        tr.hospital-unit  data-id = hospital_unit.id
-                
-                td.name = hospital_unit.try(:name) 
-                td.description = hospital_unit.try(:description) 
-                td.text-right
-                    a.btn.btn-primary.btn-xs href = edit_hospital_unit_path(hospital_unit) data-remote='true'  Edit
-                    a.btn.btn-danger.btn-xs href = hospital_unit_path(hospital_unit)  data-method='delete'  data-remote='true'  Destroy 

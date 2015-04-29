@@ -1,55 +1,48 @@
 class StoreOperationsController < ApplicationController
-  before_action :set_store_operation, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_store_operation, only: [ :edit, :update, :destroy]
 
   def index
     @store_operations = StoreOperation.all
-    new
-     respond_to do |format|
+    respond_to do |format|
      	format.html
       format.xlsx
     end
   end
 
-
   def new
     @store_operation = StoreOperation.new
   end
 
+  def create
+    @store_operation = StoreOperation.new(store_operation_params)
+    if @store_operation.valid?
+      @store_operation.save
+      flash[:notice] = "Store Operation created successfully."
+      render :js => "window.location = '#{store_operations_path}'"
+    else
+      flash[:alert] = @store_operation.errors.full_messages  
+      render :partial =>  'shared/errors'
+    end
+  end
 
   def edit
   end
 
-
-  def create
-    @store_operation = StoreOperation.new(store_operation_params)
-    begin
-    #authorize @store_operation
-    @store_operation.save!
-   rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
-    end
-  end
-
-
   def update
-  	begin
-      @store_operation.attributes = store_operation_params
-      #authorize @store_operation
-       @store_operation.save!
-       rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @store_operation.update_attributes(store_operation_params)
+      flash[:notice] = "Store Operation updated successfully."
+      render :js => "window.location = '#{store_operations_path}'"
+    else
+      flash[:alert] = @store_operation.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-    #authorize @store_operation
     @store_operation.destroy!
-   	rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+    flash[:notice] = "Store Operation deleted successfully."
+    redirect_to store_operations_path
   end
 
   private

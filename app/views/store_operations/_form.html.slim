@@ -1,9 +1,0 @@
-
-  .store-operation-form.well
-    = simple_form_for @store_operation,remote: true  do |f|
-      
-        = f.input :name,label:'Operation'
-        = f.input :description
-        = f.input :payment_required, as: :boolean
-        = f.button :submit,'Save',class: "btn-success btn-sm"
-

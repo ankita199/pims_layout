@@ -1,6 +1,0 @@
-tr.item-conc-unit data-id = item_concentration_unit.id
-  td.conc_name = item_concentration_unit.try(:name)
-  td.conc_name = item_concentration_unit.try(:description)
-  td.text-right
-    a.btn.btn-primary.btn-xs href = edit_item_concentration_unit_path(item_concentration_unit) data-remote='true'   Edit
-    a.btn.btn-danger.btn-xs href = item_concentration_unit_path(item_concentration_unit)  data-method='delete'  data-remote='true'  Destroy

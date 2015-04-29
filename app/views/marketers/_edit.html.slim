@@ -1,9 +1,0 @@
- .marketer-edit-form.well  data-id = @marketer.id
-       h5 Update#{@marketer.name}
-       = simple_form_for @marketer,remote:true  do |f| 
-
-            = f.input :name,label: 'Marketer'
-            = f.input :description
-            = f.input :foreign
-            .actions
-              = f.button :submit, "Save", class: 'btn btn-success btn-sm'

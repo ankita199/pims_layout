@@ -4,7 +4,7 @@ class MarketersController < ApplicationController
   def index
     @marketers = Marketer.all
      new
-     respond_to do |format|
+    respond_to do |format|
      	format.html
       format.xlsx
     end
@@ -19,34 +19,30 @@ class MarketersController < ApplicationController
 
   def create
     @marketer = Marketer.new(marketer_params)
-
-     begin
-     	#authorize @marketer
-      @marketer.save!
-      rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
-      rescue StandardError::Pundit::NotAuthorizedError => e
-      @error = e.message
+    if @marketer.valid?
+      @marketer.save
+      flash[:notice] = "Marketer created successfully."
+      render :js => "window.location = '#{marketers_path}'"
+    else
+      flash[:alert] = @marketer.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
   def update
-  	begin
-     @marketer.attributes = marketer_params
-     #authorize @marketer
-    @marketer.save!
-      rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+  	if @marketer.update_attributes(marketer_params)
+      flash[:notice] = "Marketer updated successfully."
+      render :js => "window.location = '#{marketers_path}'"
+    else
+      flash[:alert] = @marketer.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
   def destroy
-  	begin
-    #authorize  @marketer
-    @marketer.destroy!
-     rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+  	@marketer.destroy!
+    flash[:notice] = "Marketer deleted successfully."
+    redirect_to marketers_path
   end
 
   private

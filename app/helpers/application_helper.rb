@@ -25,4 +25,11 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def submit_button_tag(obj)
+    if obj.new_record?
+      submit_tag "Submit", :class => "btn btn-info",   data: {disable_with: "Saving..."}
+    else
+       submit_tag "Update", :class => "btn btn-info",   data: {disable_with: "Updating..."}
+    end
+  end
 end

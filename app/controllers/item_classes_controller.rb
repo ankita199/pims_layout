@@ -4,8 +4,7 @@ class ItemClassesController < ApplicationController
 
   def index
     @item_classes = ItemClass.all
-     new
-     respond_to do |format|
+    respond_to do |format|
      	format.html
       format.xlsx
     end
@@ -25,33 +24,32 @@ class ItemClassesController < ApplicationController
 
   def create
     @item_class = ItemClass.new(item_class_params)
-    begin
-    #authorize @item_class
-     @item_class.save!
-     rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @item_class.valid?
+      @item_class.save
+      flash[:notice] = "Item Class created successfully."
+      render :js => "window.location = '#{item_classes_path}'"
+    else
+      flash[:alert] = @item_class.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def update
-  	begin
-     @item_class.attributes = item_class_params
-     #authorize @item_class
-   @item_class.save!
-   rescue ActiveRecord::RecordInvalid => invalid
-      @error = invalid.record.errors.full_messages.first
+    if @item_class.update_attributes(item_class_params)
+      flash[:notice] = "Item Class updated successfully."
+      render :js => "window.location = '#{item_classes_path}'"
+    else
+      flash[:alert] = @item_class.errors.full_messages  
+      render :partial =>  'shared/errors'
     end
   end
 
 
   def destroy
-  	begin
-     #authorize  @item_class
- @item_class.destroy!
- rescue ActiveRecord::DeleteRestrictionError => e
-   	@error = e.message
-   end
+    @item_class.destroy!    
+    flash[:notice] = "Item Class deleted successfully."
+    redirect_to item_classes_path
   end
 
   private
@@ -61,8 +59,6 @@ class ItemClassesController < ApplicationController
     end
 
     def item_class_params
-      params.require(:item_class).permit(:name,:description,
-      																															 sub_classes_attributes: [:id,:name, :description] )
-
+      params.require(:item_class).permit(:name,:description,sub_classes_attributes: [:id,:name, :description,:_destroy] )
     end
 end

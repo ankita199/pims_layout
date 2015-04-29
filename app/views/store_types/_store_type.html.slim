@@ -1,7 +1,0 @@
- tr.store-type data-id = store_type.id
-
-        td.name = store_type.try(:name )
-        td.description = store_type.try(:description)
-        td.text-right
-            a.btn.btn-primary.btn-xs href = edit_store_type_path(store_type) data-remote='true'  Edit
-            a.btn.btn-danger.btn-xs href = store_type_path(store_type) data-method='delete'   data-remote='true'  Destroy
