@@ -1,0 +1,113 @@
+<div class="sidebar col-md-2 col-sm-1 ">			
+	<div class="sidebar-collapse collapse">
+		<div class="nav-sidebar title"><span>Main Menu</span></div>
+		<ul class="nav nav-sidebar">
+			<li><a href="<%= dashboard_path %>">
+				<i class="fa fa-bar-chart-o"></i>
+				<span class="hidden-sm text">
+					Dashboard
+				</span></a>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-plus-square "></i>
+					<span class="hidden-sm text">  Store Setup</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= store_types_path %>"><i class="fa fa-user-md fa-fw"></i>Store Category<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= store_operations_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Store Operation</span></a></li>
+					<li><a class="submenu" href="<%= stores_path %>"><i class="fa fa-sitemap fa-fw"></i><span class="hidden-sm text"> Store</span></a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-user"></i>
+					<span class="hidden-sm text"> User Setup</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= staff_categories_path %>"><i class="fa fa-user-md fa-fw"></i>Staff Category<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= users_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">User</span></a></li>
+				</ul>
+			</li>	
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-cube"></i>
+					<span class="hidden-sm text"> General Setup</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= vendors_path %>"><i class="fa fa-user-md fa-fw"></i>Vendor<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= marketers_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Marketer</span></a></li>
+					<li><a class="submenu" href="<%= hospital_units_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Hospital Unit</span></a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-cube"></i>
+					<span class="hidden-sm text"> Drug Item Setup</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= item_classes_path %>"><i class="fa fa-user-md fa-fw"></i>Drug Classification<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= unit_doses_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Dosage Form</span></a></li>
+					<li><a class="submenu" href="<%= item_concentration_units_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Strenght Unit</span></a></li>
+					<li><a class="submenu" href="<%= pharm_items_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Generic</span></a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-dollar"></i>
+					<span class="hidden-sm text"> Commercial</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= surcharges_path %>"><i class="fa fa-user-md fa-fw"></i>Surcharge<span class="hidden-sm text"></span></a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-exchange"></i>
+					<span class="hidden-sm text"> Items Management</span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= supplies_path %>"><i class="fa fa-user-md fa-fw"></i>Supply<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= approval_index_approvals_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Approval</span></a></li>
+					<li><a class="submenu" href="<%= new_user_profile_path %>"><i class="fa fa-dollar fa-fw"></i><span class="hidden-sm text">Request Service</span></a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a class="dropmenu" href="#">
+					<i class="fa fa-stethoscope"></i>
+					<span class="hidden-sm text">Patient Management </span>
+					<span class="chevron closed"></span>
+				</a>
+				<ul>
+					<li><a class="submenu" href="<%= patients_path %>"><i class="fa fa-file-text fa-fw"></i>Billing<span class="hidden-sm text"></span></a></li>
+					<li><a class="submenu" href="<%= patients_path %>"><i class="fa fa-file-text fa-fw"></i><span class="hidden-sm text">Collate</span></a></li>
+					<li><a class="submenu" href="<%= new_user_profile_path %>"><i class="fa fa-medkit fa-fw"></i><span class="hidden-sm text">Dispense</span></a></li>
+					<li><a class="submenu" href="<%= requests_path %>"><i class="fa fa-repeat fa-fw"></i><span class="hidden-sm text">Request Items</span></a></li>
+					<li><a class="submenu" href="<%= new_user_profile_path %>"><i class="fa fa-repeat fa-fw"></i><span class="hidden-sm text">Return</span></a></li>
+				</ul>
+			</li>
+			
+			<li>
+				<a href="#">
+					<i class="fa fa-pie-chart "></i>
+					<span class="hidden-sm text"> Reports</span>
+					<span class="chevron closed"></span>
+				</a>				
+			</li>				
+		</ul>
+	</div>
+	<a href="<%= dashboard_path %>#" id="main-menu-min" class="full visible-md visible-lg"><i class="fa fa-angle-double-left"></i></a>
+</div>

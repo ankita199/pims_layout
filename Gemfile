@@ -7,8 +7,7 @@ gem 'devise', '~> 3.3.0'
 gem 'rolify'
 gem 'pundit', '~> 0.3.0'
 gem 'pg', '~> 0.17.1'
-
-
+gem 'therubyracer'
 
 #Functions gems
 gem 'pdf-core', '~> 0.4.0'
@@ -25,7 +24,8 @@ gem 'thin', '~> 1.6.3'
 gem 'simple_form', '~> 3.1.0.rc2'
 gem 'cocoon', '~> 1.2.6'
 gem 'nokogiri', '~> 1.6.6.2'
-
+gem 'nested_form'
+gem "bootstrap_form"
 
 
 #Assets gems
@@ -34,7 +34,7 @@ gem 'slim-rails', '~> 3.0.0'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'sass-rails', '~> 4.0.3'
-gem 'font-awesome-rails', '~> 4.2.0.0'
+gem 'font-awesome-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'

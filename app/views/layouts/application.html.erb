@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PIMS</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<%= render 'layouts/header' %>
+	<div class="container-fluid content">
+		<div class="row">
+			<%= render 'layouts/sidebar' %>
+			<div class="col-md-10 col-sm-11 main ">
+				<%= render 'shared/error_messages' %>
+				<%= yield %>
+			</div>		
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<%= render 'layouts/footer' %>
+</body>
+</html>

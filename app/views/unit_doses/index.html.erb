@@ -1,0 +1,42 @@
+<div class="row">		
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Dosage Form
+				<div class="panel-actions">
+					<a href="#" data-toggle="modal" data-target="#unit_dose_modal_"><i class="fa fa-plus fa-2x"></i></a><%= render 'form', :unit_dose => UnitDose.new  %>
+					<a href="<%= unit_doses_path(:format => "xlsx") %>"><i class="fa fa-download fa-2x"></i></a>
+					<a href="#" class="btn-minimize"><i class="fa fa-chevron-up fa-2x"></i></a>
+				</div>				
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+				  <thead>
+					  <tr>
+					   	<th> Dosage Form </th>
+            	<th> Route of Administration </th>
+            	<th> Combine </th>
+						  <th>Actions</th>
+					  </tr>
+				  </thead>   
+				  <tbody>
+				  	<% @unit_doses.each  do |unit_dose| %>
+							<tr>
+								<td><%= unit_dose.try(:name) %></td>
+        				<td><%= unit_dose.try(:form_type ) %></td>
+        				<td><%= unit_dose.unit_type %>
+								<td>
+									<a href="#" data-toggle="modal" data-target="#unit_dose_modal_<%= unit_dose.id %>" class="btn btn-info"><i class="fa fa-edit"></i></a>
+									<%= render "form", :unit_dose => unit_dose %>
+									<a class="btn btn-danger" href="<%= unit_dose_path(unit_dose) %>"  data-method="delete" data-confirm="Are you sure want to delete?">
+										<i class="fa fa-trash-o "></i> 
+									</a>
+								</td>
+							</tr>
+						<% end %>
+				  </tbody>
+			  </table>            
+			</div>
+		</div>
+	</div>
+</div>

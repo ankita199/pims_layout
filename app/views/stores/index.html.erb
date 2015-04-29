@@ -1,0 +1,60 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Stores
+				<div class="panel-actions">
+					<a href="#" data-toggle="modal" data-target="#store_modal_"><i class="fa fa-plus fa-2x"></i></a>
+					<a href="#"><i class="fa fa-download fa-2x"></i></a>
+					<a href="#" class="btn-minimize"><i class="fa fa-chevron-up fa-2x"></i></a>
+				</div>				
+			</div>
+			<%= render 'form', :store => Store.new  %>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+				  <thead>
+					  <tr>
+					  	<th>Store Name</th>
+             	<th>Category</th>
+             	<th>Parent Store</th>
+             	<th>Operation Mode</th>
+             	<th>Role</th>
+             	<th>Actions</th>
+					  </tr>
+				  </thead>   
+				  <tbody>
+				  	<% @stores.each  do |store| %>
+							<tr>
+								<td><%= store.try(:name) %></td>
+        				<td><%= store.store_type.try(:name) %></td>  
+        				<td><%= store.parent.try(:name) %></td>
+        				<td><%= store.store_operation.try(:name) %></td>
+								<td>
+									<table class="table.table-striped.table-condensed">
+             				<thead>
+             				 	<th>Name</th>
+      							</thead>                   
+             				<tbody>
+               				<% store.roles.each do |role| %>
+                				<tr>
+                    			<td><%= role.try(:name) %></td>
+                    		</tr>
+                    	<% end %>
+                    </tbody>
+                   </table>
+                </td>
+								<td>
+									<a href="#" data-toggle="modal" data-target="#store_modal_<%= store.id %>" class="btn btn-info"><i class="fa fa-edit"></i></a>
+									<a class="btn btn-danger" href="<%= store_path(store) %>"  data-method="delete" data-confirm="Are you sure want to delete?">
+										<i class="fa fa-trash-o "></i> 
+									</a>
+								</td>
+							</tr>
+							<%= render "form", :store => store %>
+						<% end %>
+				  </tbody>
+			  </table>            
+			</div>
+		</div>
+	</div>
+</div>

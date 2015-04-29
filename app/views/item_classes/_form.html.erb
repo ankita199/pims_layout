@@ -1,0 +1,31 @@
+<div class="modal fade custom-width" id="item_class_modal_<%= item_class.id %>" >
+  <div class="modal-dialog">
+    <div class="modal-content">   
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Drug Classification</h4>
+      </div>
+      <div class="modal-body">
+        <%= bootstrap_nested_form_for(item_class, :class => "form-horizontal form-groups-bordered", :remote => true) do |f| %>
+          <div class="errors"></div>          
+          <div class="col-sm-12">
+            <%= f.text_field :name %>
+            <%= f.text_field :description %>
+            <%= f.fields_for :sub_classes do |ff| %>
+              <div class="panel panel-warning">
+                <div class="panel-heading">Sub Classification</div>
+                <div class="panel-body">
+                  <%= ff.text_field :name,label:"Sub Classification" %>
+                  <%= ff.text_area :description %>
+                </div>
+              </div>
+              <%= ff.link_to_remove "Remove Sub Classification", :class => "btn btn-mini btn-danger" %>
+            <% end %>
+          </div>
+          <%= f.link_to_add 'Add Sub Classification',:sub_classes, class: 'btn btn-mini btn-info' %>          
+          <%= submit_button_tag(f.object) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

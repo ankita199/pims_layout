@@ -1,0 +1,25 @@
+doctype html
+html
+	=render 'layouts/head'
+	body
+	  .container
+	  	 #application-main
+	  	 
+	  	    #application-main-header
+                
+	  	    #application-main-body
+				.col-md-12
+					= render 'shared/navbar'
+				#application-main-body-sidebar
+				.col-md-2
+					= render 'shared/sidebar'
+				#application-main-body-yield 
+				.col-md-10	
+				    /-unless !current_store.try(:name).present?    or current_user.has_role? :admin
+				        h5 ="Your active store is: #{current_store.try(:name)}" 
+				    /-unless !current_store.try(:name).present? 
+				        a.link-store-change href=store_selections_index_path Change Active Store 
+					- flash.each do |_, msg|
+	          			= render 'notifies/notify', msg: msg
+					= yield
+
