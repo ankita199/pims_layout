@@ -13,9 +13,9 @@
 				<table class="test table table-striped table-bordered bootstrap-datatable datatable test">
 				  <thead>
 					  <tr>
+					  	
 						  <th>Classification</th>
               <th>Description</th>
-              <th>Sub Classes</th>
               <th>Actions</th>
 					  </tr>
 				  </thead>   
@@ -24,31 +24,26 @@
 							<tr>
 								<td><%= item_class.try(:name) %></td>
         				<td><%= item_class.try(:description) %></td>
-        				<td>
-            			<%= item_class.try(:sub_classes).count %>
-            			<table>
-                    <tr>
-                    	<th> Sub Class </th>
-                    	<th> Description </th>
-                    </tr>
-                		<% item_class.sub_classes.each do |sub_class| %>
-                 			<tbody>
-                    		<tr>
-                    			<td><%= sub_class.try(:name) %></td>
-                    			<td><%= sub_class.try(:description) %></td>
-                    		</tr>
-                    	</tbody>
-                    <% end %>
-                  </table>
-                </td>
 								<td>
 									<a href="#" data-toggle="modal" data-target="#item_class_modal_<%= item_class.id %>" class="btn btn-info"><i class="fa fa-edit"></i></a>
 									<%= render "form", :item_class => item_class %>
 									<a class="btn btn-danger" href="<%= item_class_path(item_class) %>"  data-method="delete" data-confirm="Are you sure want to delete?">
 										<i class="fa fa-trash-o "></i> 
 									</a>
-								</td>
-							</tr>
+								</td>    
+							
+								<tbody>
+									<tr>
+		              	<% item_class.sub_classes.each do |sub_class| %>
+		              		<tr>
+			              		<td>sd</td>
+		  	            		<td><%= sub_class.try(:name) %></td>
+		    	          		<td><%= sub_class.try(:description) %></td>
+		    	          	</tr>
+		        	      <% end %>
+		        	    </tr>
+						  	</tbody>
+					  	</tr>
 						<% end %>
 				  </tbody>
 			  </table>            

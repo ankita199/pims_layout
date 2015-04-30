@@ -1,0 +1,29 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Hospital Units
+        .panel-actions
+          a href="#"  data-target="#hospital_unit_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{hospital_units_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+              th Hospital Unit
+              th Description
+              th Actions
+          tbody
+			= render 'form', :hospital_unit => HospitalUnit.new 
+            - @hospital_units.each  do |hospital_unit|
+	          tr
+				td.name = hospital_unit.try(:name)
+				td.description = hospital_unit.try(:description)
+				td
+				  a.btn.btn-info data-target = ("#hospital_unit_modal_#{hospital_unit.id}") data-toggle = "modal" href="#"
+					i.fa.fa-edit
+				  = render 'form', :hospital_unit => hospital_unit
+				  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= hospital_unit_path(hospital_unit)") 
+					i.fa.fa-trash-o
