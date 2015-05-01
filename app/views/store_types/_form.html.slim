@@ -1,0 +1,13 @@
+.col-md-12
+  .modal.fade.custom-width id=("store_type_modal_#{store_type.id}") 
+	.modal-dialog
+	  .modal-content
+		.modal-header
+		  button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+		  h4.modal-title Hospital Unit
+		.modal-body
+		  = bootstrap_form_for(store_type, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+			.errors
+			= f.text_field :name
+			= f.text_field :description
+			= submit_button_tag(f.object)

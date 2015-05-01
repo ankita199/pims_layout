@@ -1,0 +1,29 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Store Types
+        .panel-actions
+          a data-target="#store_type_modal_" data-toggle="modal" href="#" 
+          	i.fa.fa-plus.fa-2x
+          a href="#{store_types_path(:format => "xlsx")}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+              th Name
+              th Description
+              th Actions
+          tbody
+      		= render 'form', :store_type => StoreType.new
+            - @store_types.each  do |store_type|
+            	tr
+              	td.name  = store_type.try(:name) 
+              	td.description  = store_type.try(:description)
+              	td              	
+                	a.btn.btn-info data-target=("#store_type_modal_#{store_type.id}") data-toggle="modal" href="#"
+	                	i.fa.fa-edit
+	                = render "form", :store_type => store_type 	 
+              		a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{store_type_path(store_type)}")
+  	              	i.fa.fa-trash-o

@@ -19,11 +19,11 @@
 			= render 'form', :hospital_unit => HospitalUnit.new 
             - @hospital_units.each  do |hospital_unit|
 	          tr
-				td.name = hospital_unit.try(:name)
-				td.description = hospital_unit.try(:description)
-				td
-				  a.btn.btn-info data-target = ("#hospital_unit_modal_#{hospital_unit.id}") data-toggle = "modal" href="#"
-					i.fa.fa-edit
-				  = render 'form', :hospital_unit => hospital_unit
-				  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= hospital_unit_path(hospital_unit)") 
-					i.fa.fa-trash-o
+							td.name = hospital_unit.try(:name)
+							td.description = hospital_unit.try(:description)
+							td
+							  a.btn.btn-info data-target = ("#hospital_unit_modal_#{hospital_unit.id}") data-toggle = "modal" href="#"
+								i.fa.fa-edit
+							  = render 'form', :hospital_unit => hospital_unit
+							  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= hospital_unit_path(hospital_unit)") 
+								i.fa.fa-trash-o
