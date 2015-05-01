@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Store Operations
+        .panel-actions
+          a data-target="#store_operation_modal_" data-toggle="modal" href="#" 
+            i.fa.fa-plus.fa-2x
+          a href="#{store_operations_path(:format => "xlsx")}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+              th Name
+              th Description
+              th Payment required
+              th Actions
+          tbody
+          	= render 'form', :store_operation => StoreOperation.new
+            - @store_operations.each  do |store_operation|
+            	tr
+	              td = store_operation.try(:name )
+	              td = store_operation.try(:description)
+	              td = store_operation.payment_required.to_s.capitalize
+	              td
+	                a.btn.btn-info data-target=("#store_operation_modal_#{store_operation.id}") data-toggle="modal" href="#" 
+	                  i.fa.fa-edit
+	                a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{store_operation_path(store_operation)}")
+	                  i.fa.fa-trash-o
+	            = render "form", :store_operation => store_operation

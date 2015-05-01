@@ -1,0 +1,14 @@
+.col-md-12
+  .modal.fade.custom-width id=("store_operation_modal_#{store_operation.id}") 
+	.modal-dialog
+	  .modal-content
+		.modal-header
+		  button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+		  h4.modal-title Store Operation
+		.modal-body
+		  = bootstrap_form_for(store_operation, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+			.errors
+			= f.text_field :name
+			= f.text_field :description
+			= f.check_box :payment_required
+			= submit_button_tag(f.object)
