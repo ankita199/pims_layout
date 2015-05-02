@@ -1,0 +1,29 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Staff  Categories
+        .panel-actions
+          a href="#"  data-target="#staff_category_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{staff_categories_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+              th Name
+              th Description
+              th Actions
+          tbody
+			= render 'form', :staff_category => StaffCategory.new
+            - @staff_categories.each  do |staff_category|
+	          tr
+							td.name = staff_category.try(:name)
+							td.description = staff_category.try(:description)
+							td
+							  a.btn.btn-info data-target = ("#staff_category_modal_#{staff_category.id}") data-toggle = "modal" href="#"
+								i.fa.fa-edit
+							  = render 'form', :staff_category => staff_category
+							  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= staff_category_path(staff_category)") 
+								i.fa.fa-trash-o
