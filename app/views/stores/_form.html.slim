@@ -1,0 +1,16 @@
+.col-md-12
+  .modal.fade.custom-width id=("store_modal_#{store.id}") 
+	.modal-dialog
+	  .modal-content
+		.modal-header
+		  button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+		  h4.modal-title Store
+		.modal-body
+		  = bootstrap_form_for(store, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+			.errors
+			= f.text_field :name
+			= f.select :parent_id, @stores.map{ |s| [s.name, s.id] }, :prompt => "Select Parent"
+			= f.select :store_operation_id, @stores.map{ |s| [s.name, s.id] }, :prompt => "Select Operation"
+			= f.label "Roles"
+			= f.select :role_ids, options_for_select(Role::NAMES, :selected => store.roles.pluck(:name)), {:include_blank => false,hide_label: true}, {:multiple => true}
+			= submit_button_tag(f.object)
