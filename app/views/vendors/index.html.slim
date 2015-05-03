@@ -1,0 +1,41 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Vendors
+        .panel-actions
+          a data-target="#vendor_modal_" data-toggle="modal" href="#" 
+            i.fa.fa-plus.fa-2x          
+          a href="#{vendors_path(:format => "xlsx")}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+							th Name
+							th Reg No
+							th Address
+							th Contact Name
+							th Contact Mobile
+							th Contact Email
+							th Vendor Category
+							th Vendor Store Name
+							th Actions
+          tbody
+						= render "form", :vendor => Vendor.new
+						- @vendors.each  do |vendor|
+							tr
+								td.name       = vendor.try(:name)
+								td.reg_number = vendor.try(:reg_number)	
+								td.address    = vendor.address
+								td.cname      = vendor.contact_name
+								td.cmobile    = vendor.contact_mobile
+								td.cemail     = vendor.contact_email
+								td.vname      = vendor.vendor_category.try(:name)
+								td.sname      = vendor.store.try(:name)
+								td
+									a.btn.btn-info data-target=("#vendor_modal_#{vendor.id}") data-toggle="modal" href="#" 
+										i.fa.fa-edit										
+									= render "form", :vendor => vendor
+									a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{vendor_path(vendor)}") 
+										i.fa.fa-trash-o

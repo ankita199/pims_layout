@@ -1,0 +1,19 @@
+.modal.fade.custom-width id=("vendor_modal_#{vendor.id}") 
+  .modal-dialog
+    .modal-content
+    .modal-header
+      button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+      h4.modal-title Vendor
+    .modal-body
+      = bootstrap_form_for(vendor, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+        .errors
+        = f.text_field :name
+        = f.text_field :reg_number
+        = f.text_field :address
+        = f.text_field :contact_name
+        = f.text_field :contact_mobile
+        = f.text_field :contact_email
+        = f.select :state_id, State.all.map{ |s| [s.name, s.id] }, :prompt => "Select State"
+        = f.select :vendor_category_id, VendorCategory.all.map{ |s| [s.name, s.id] }, :prompt => "Select Vendor Category"
+        = f.select :store_id, Store.all.map{ |s| [s.name, s.id] }, :prompt => "Select State"
+        = submit_button_tag(f.object)

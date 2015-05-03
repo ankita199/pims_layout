@@ -1,0 +1,14 @@
+.modal.fade.custom-width id=("marketer_modal_#{marketer.id}") 
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+        h4.modal-title Marketer
+      .modal-body
+        = bootstrap_form_for(marketer, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+	        .errors
+	        .col-md-12
+	          = f.text_field :name
+	          = f.text_field :description
+	          = f.check_box :foreign
+	        	= submit_button_tag(f.object)

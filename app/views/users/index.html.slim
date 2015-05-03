@@ -13,13 +13,13 @@
 					thead
 						tr
 							th Name
-            	th Username
-            	th Staff Category
-            	th Status
-            	th Valid Till
-            	th Staff staff_category
-            	th Role
-            	th Actions
+							th Username
+							th Staff Category
+							th Status
+							th Valid Till
+							th Staff staff_category
+							th Role
+							th Actions
 					tbody
 						- @users.each  do |user|
 							tr
@@ -34,14 +34,14 @@
 										thead
 											tr
 												th Role
-                  			th Store
-										tbody.user
-											- user.roles.each do |role|
-												tr
-													td = role.try(:name)
-                  				td = role.resource.try(:name)
+												th Store
+											tbody.user
+												- user.roles.each do |role|
+													tr
+														td = role.try(:name)
+														td = role.resource.try(:name)
 								td
-									a href="= edit_user_path(user)" 
+									a.btn.btn-info href="#{edit_user_path(user)}"
 										i.fa.fa-edit
-									a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= user_path(user)") 
+									a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{user_path(user)}") 
 										i.fa.fa-trash-o

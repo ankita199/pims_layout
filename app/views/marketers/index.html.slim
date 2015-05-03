@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Marketers
+        .panel-actions
+          a data-target="#marketer_modal_" data-toggle="modal" href="#" 
+            i.fa.fa-plus.fa-2x
+          a href="#{marketers_path(:format => "xlsx")}"
+          i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+              th Marketer
+              th Description
+              th Foreign brand
+              th Actions
+          tbody          
+          	= render 'form', :marketer => Marketer.new
+            - @marketers.each  do |marketer|
+	            tr
+	              td.name = marketer.try(:name )
+	              td.desc = marketer.try(:description)
+	              td.foreign = marketer.foreign.to_s.capitalize
+	              td
+	                a.btn.btn-info data-target=("#marketer_modal_#{marketer.id}") data-toggle="modal" href="#" 
+	                  i.fa.fa-edit
+	                a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{marketer_path(marketer)}") 
+	                  i.fa.fa-trash-o
+	            	= render "form", :marketer => marketer
