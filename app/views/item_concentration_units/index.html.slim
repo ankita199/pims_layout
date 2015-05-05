@@ -1,0 +1,29 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Item Concentration Unit
+        .panel-actions
+          a href="#"  data-target="#item_concentration_unit_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{item_concentration_units_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+							th Strength Unit
+							th Description
+							th Actions
+          tbody
+			= render 'form', :item_concentration_unit => ItemConcentrationUnit.new 
+            - @item_concentration_units.each  do |item_concentration_unit|
+	          tr
+							td.name = item_concentration_unit.try(:name)
+							td.charge_type = item_concentration_unit.description
+							td
+							  a.btn.btn-info data-target = ("#item_concentration_unit_modal_#{item_concentration_unit.id}") data-toggle = "modal" href="#"
+								i.fa.fa-edit
+							  = render 'form', :item_concentration_unit => item_concentration_unit
+							  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{item_concentration_unit_path(item_concentration_unit)}") 
+								i.fa.fa-trash-o

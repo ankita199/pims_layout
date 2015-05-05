@@ -1,0 +1,13 @@
+.col-md-12
+  .modal.fade.custom-width id=("unit_dose_modal_#{unit_dose.id}") 
+	.modal-dialog
+	  .modal-content
+		.modal-header
+		  button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+		  h4.modal-title Unit Doses
+		.modal-body
+		  = bootstrap_nested_form_for(unit_dose, :class => "form-horizontal form-groups-bordered", :remote => true) do |f|
+			.errors
+			= f.text_field :name
+			= f.select :form_type, UnitDose::Unit_Types, :prompt => "Select Form Type"
+			= submit_button_tag(f.object)

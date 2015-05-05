@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Surcharge
+        .panel-actions
+          a href="#"  data-target="#surcharge_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{surcharges_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+							th Name
+							th Type
+							th Status
+							th Actions
+          tbody
+			= render 'form', :surcharge => Surcharge.new 
+            - @surcharges.each  do |surcharge|
+	          tr
+							td.name = surcharge.try(:name)
+							td.charge_type = surcharge.charge_type
+							td.active = surcharge.try(:active).to_s.capitalize
+							td
+							  a.btn.btn-info data-target = ("#surcharge_modal_#{surcharge.id}") data-toggle = "modal" href="#"
+								i.fa.fa-edit
+							  = render 'form', :surcharge => surcharge
+							  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= surcharge_path(surcharge)") 
+								i.fa.fa-trash-o

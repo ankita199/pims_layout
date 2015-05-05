@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Dosage Form
+        .panel-actions
+          a href="#"  data-target="#unit_dose_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{unit_doses_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+							th Dosage Form
+							th Route of Administration
+							th Combine
+							th Actions
+          tbody
+			= render 'form', :unit_dose => UnitDose.new 
+            - @unit_doses.each  do |unit_dose|
+	          tr
+							td.name = unit_dose.try(:name)
+							td.form_type =  unit_dose.try(:form_type )
+							td.unittype = unit_dose.unit_type
+							td
+							  a.btn.btn-info data-target = ("#unit_dose_modal_#{unit_dose.id}") data-toggle = "modal" href="#"
+								i.fa.fa-edit
+							  = render 'form', :unit_dose => unit_dose
+							  a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("= unit_dose_path(unit_dose)") 
+								i.fa.fa-trash-o
