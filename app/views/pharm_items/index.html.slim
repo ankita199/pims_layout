@@ -1,0 +1,61 @@
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Generic
+        .panel-actions
+          a href="#{new_pharm_item_path}"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{pharm_items_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+          thead
+            tr
+							th Name
+							th Classes
+							th Brands
+							th Actions
+          tbody
+            - @pharm_items.each  do |pharm_item|
+	          tr
+							td.name = pharm_item.try(:name)
+							td
+								table.table.table-striped.table-condensed
+									thead
+										tr
+											th #
+											th Name
+									tbody
+										- pharm_item.sub_classes.each_with_index do |sub_class,index|
+											tr
+												td = index + 1
+												td = sub_class.try(:sub_main)
+							td
+								table.table.table-striped
+									thead
+										tr
+											th #
+											th Brand
+											th Dosage Form
+											th Strength
+											th Strength Unit
+											th Marketer
+											th Pack Size
+											th Min Dispensable
+									tbody
+										- pharm_item.brands.each_with_index do | brand,index|
+											tr
+												td = index + 1
+												td = brand.try(:name)
+												td = brand.try(:unit_dose).try(:name)
+												td = brand.try(:concentration)
+												td = brand.try(:item_concentration_unit).try(:name)
+												td = brand.try(:marketer).try(:name)
+												td = brand.try(:pack_size)
+												td = brand.try(:min_dispensable)
+								td
+									a.btn.btn-info href="#{edit_pharm_item_path(pharm_item)}"
+										i.fa.fa-edit
+									a.btn.btn-danger href="#{pharm_item_path(pharm_item)}"  data-method="delete" data-confirm="Are you sure want to delete?"
+										i.fa.fa-trash-o

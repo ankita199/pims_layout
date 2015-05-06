@@ -1,36 +1,28 @@
 .row
-	.col-lg-12
-		.panel panel-default
-			.panel-heading
-			|	Drug Classification
-				.panel-actions
-					.a href="#" data-toggle="modal" data-target="#item_class_modal_"
-						.i.fa fa-plus fa-2x"
-						= render 'form', :item_class => ItemClass.new
-					.a href="#{item_classes_path(:format => "xlsx")}"
-						.i.fa fa-download fa-2x
-			.panel-body
-				table.test.table.table-striped.table-bordered.bootstrap-datatable.datatable
-				  thead
-					  tr				  	
-						  th Classification
-              th Description
-              th sub class
-              th Actions
-				  tbody
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        | Drug Classification
+        .panel-actions
+          a href="#"  data-target="#item_class_modal_" data-toggle="modal"
+          	i.fa.fa-plus.fa-2x
+          a href = "#{item_classes_path(:format => 'xlsx')}"
+          	i.fa.fa-download.fa-2x
+      .panel-body
+				table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+					thead
+						tr
+							th Classification
+							th Description
+							th Actions
+					tbody
 						- @item_classes.each  do |item_class|
 							tr
-								td = item_class.try(:name)
-        				td = item_class.try(:description)
+								td.name = item_class.try(:name)
+								td.description = item_class.try(:description)
 								td
-									tr
-         						- item_class.sub_classes.each do |sub_class|
-         							tr
-          							td = sub_class.try(:name)
-          							td = sub_class.try(:description)
-   	  					td
-									a.btn.btn-info data-target = ("#item_class_modal_1") data-toggle = "modal" href="#"
-										i.fa fa-edit
-									= render "form", :item_class => item_class
-									a.btn.btn-danger href="#{item_class_path(1)}"  data-method="delete" data-confirm="Are you sure want to delete?">
-										i.fa fa-trash-o
+									a.btn.btn-info data-target = ("#item_class_modal_#{item_class.id}") data-toggle = "modal" href="#"
+										i.fa.fa-edit
+									a.btn.btn-danger data-confirm=("Are you sure want to delete?") data-method="delete" href=("#{item_class_path(item_class)}")
+										i.fa.fa-trash-o
+									= render 'form', :item_class => item_class
