@@ -1,0 +1,9 @@
+= f.text_field :name,label:'Brand'
+= f.select :marketer_id, Marketer.all.map{ |s| [s.name, s.id] }, :prompt => "Select Marketer"
+= f.select :unit_dose_id, UnitDose.all.map{ |s| [s.name, s.id] }, :prompt => "Select Dosage Form"
+= f.text_field :concentration, label:"Strength"
+= f.select :item_concentration_unit_id,  ItemConcentrationUnit.all.map{ |s| [s.name, s.id] }, prompt: "Strength Unit",label:"Strength Unit"
+= f.text_field :pack_size
+= f.text_field :pack_bundle
+= f.text_field :min_dispensable,label:"Minimum Dispensable"
+= f.link_to_remove "Remove brand", :class => "btn btn-mini btn-danger"
